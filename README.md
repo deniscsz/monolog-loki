@@ -120,6 +120,7 @@ monolog:
                     env('LOKI_AUTH_BASIC_USER', ''),
                     env('LOKI_AUTH_BASIC_PASSWORD', '')
                 ],
+                'apikey' => env('LOKI_AUTH_APIKEY', null)
             ],
         ],
     ],
@@ -131,6 +132,7 @@ monolog:
 LOKI_ENTRYPOINT="http://loki:3100"
 LOKI_AUTH_BASIC_USER=
 LOKI_AUTH_BASIC_PASSWORD=
+LOKI_AUTH_APIKEY=
 LOKI_SYSTEM_NAME=null
 LOKI_CONTEXT_PREFIX="context_"
 LOKI_EXTRA_PREFIX=
