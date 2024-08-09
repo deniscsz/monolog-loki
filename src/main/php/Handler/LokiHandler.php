@@ -25,6 +25,8 @@ class LokiHandler extends AbstractProcessingHandler
     /** the identifiers for Basic Authentication to the Loki system */
     protected array $basicAuth = [];
 
+    protected ?string $apikeyAuth = null;
+
     /** the name of the system (hostname) sending log messages to Loki */
     protected ?string $systemName;
 
@@ -64,6 +66,9 @@ class LokiHandler extends AbstractProcessingHandler
         $this->customCurlOptions = $this->determineValidCustomCurlOptions($apiConfig['curl_options'] ?? []);
         if (isset($apiConfig['auth']['basic'])) {
             $this->basicAuth = (2 === count($apiConfig['auth']['basic'])) ? $apiConfig['auth']['basic'] : [];
+        }
+        if (isset($apiConfig['auth']['apikey'])) {
+            $this->apikeyAuth = $apiConfig['auth']['apikey'];
         }
         if (isset($apiConfig['tenant_id'])) {
             $this->tenantId = $apiConfig['tenant_id'];
@@ -109,6 +114,11 @@ class LokiHandler extends AbstractProcessingHandler
     {
         $payload = json_encode($packet, JSON_THROW_ON_ERROR | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
         $url = sprintf('%s/loki/api/v1/push', $this->entrypoint);
+
+        if (!empty($this->apikeyAuth)) {
+            $url .= '?apikey=' . htmlspecialchars(strip_tags($this->apikeyAuth));
+        }
+
         if (null === $this->connection) {
             $this->connection = curl_init($url);
 

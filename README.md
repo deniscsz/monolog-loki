@@ -28,9 +28,11 @@ $handler = new WhatFailureGroupHandler(
                 'client_name' => 'your_host_name', // Here set a unique identifier for the client host
                 // Optional: Sets tenant id (HTTP header X-Scope-OrgID), if null or missing -> no header
                 'tenant_id' => 'some-tenant',
-                // Optional : if you're using basic auth to authentify
+                // Optional : if you're using basic auth or apikey to authentify
+                // You can use one of or both
                 'auth' => [
                     'basic' => ['user', 'password'],
+                    'apikey' => 'API_KEY_TOKEN'
                 ],
                 // Optional : Override the default curl options with custom values
                 'curl_options' => [
