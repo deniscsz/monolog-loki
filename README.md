@@ -115,6 +115,8 @@ monolog:
             'context'     => [],
             'labels'      => [],
             'client_name' => '',
+            'connect_timeout' => env('LOKI_CONNECT_TIMEOUT_MS', 1000),
+            'timeout' => env('LOKI_TIMEOUT_MS', 1000),
             'auth' => [
                 'basic' => [
                     env('LOKI_AUTH_BASIC_USER', ''),
@@ -136,6 +138,8 @@ LOKI_AUTH_APIKEY=
 LOKI_SYSTEM_NAME=null
 LOKI_CONTEXT_PREFIX="context_"
 LOKI_EXTRA_PREFIX=
+LOKI_CONNECT_TIMEOUT_MS=
+LOKI_TIMEOUT_MS=
 ```
 These vars can be injected by Kubernetes, Docker or simply by setting them on the .env file
 

@@ -130,8 +130,8 @@ class LokiHandler extends AbstractProcessingHandler
         if (false !== $this->connection) {
             $curlOptions = array_replace(
                 [
-                    CURLOPT_CONNECTTIMEOUT_MS => 100,
-                    CURLOPT_TIMEOUT_MS => 200,
+                    CURLOPT_CONNECTTIMEOUT_MS => function_exists('config') ? config('logging.channels.loki.handler_with.apiConfig.connect_timeout', 100) : 100,
+                    CURLOPT_TIMEOUT_MS => function_exists('config') ? config('logging.channels.loki.handler_with.apiConfig.timeout', 200) : 200,
                     CURLOPT_CUSTOMREQUEST => 'POST',
                     CURLOPT_RETURNTRANSFER => true,
                     CURLOPT_POSTFIELDS => $payload,
